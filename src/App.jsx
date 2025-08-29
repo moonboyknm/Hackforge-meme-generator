@@ -14,8 +14,16 @@ function App() {
     fetch('/api/trends')
       .then(res => res.json())
       .then(data => {
-        // Take the first 10 trends from the first group
-        setTrends(data[0].title_queries.slice(0, 10));
+        // Take the first 10 trends from trending_searches array
+        if (data && data.length > 0) {
+          // Map the trending searches to the format expected by the UI
+          const formattedTrends = data.slice(0, 10).map(trend => ({
+            query: trend.query
+          }));
+          setTrends(formattedTrends);
+        } else {
+          setError('No trends data available');
+        }
         setIsLoading(false);
       })
       .catch(err => {

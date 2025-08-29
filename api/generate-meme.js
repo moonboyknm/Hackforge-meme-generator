@@ -1,9 +1,9 @@
 // File: /api/generate-meme.js
 import Groq from 'groq-sdk';
 
-const groq = new Groq({ apiKey: process.env.VITE_GROQ_API_KEY });
-
 export default async function handler(request, response) {
+  // Initialize Groq client inside the handler to ensure env vars are loaded
+  const groq = new Groq({ apiKey: process.env.VITE_GROQ_API_KEY || process.env.GROQ_API_KEY });
   // Ensure it's a POST request
   if (request.method !== 'POST') {
     return response.status(405).json({ message: 'Only POST requests are allowed' });
