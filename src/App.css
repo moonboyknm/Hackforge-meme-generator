@@ -1,0 +1,20 @@
+/* File: /src/App.css */
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; color: #1c1e21; margin: 0; }
+.app-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.app-header { text-align: center; border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 30px; }
+.app-header h1 { margin: 0; }
+.app-header p { color: #606770; }
+.main-content { display: flex; gap: 30px; }
+.trends-column, .meme-column { flex: 1; }
+.trends-column ul { list-style: none; padding: 0; }
+.trends-column li { display: flex; justify-content: space-between; align-items: center; padding: 12px; background-color: #fff; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.trends-column button { background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
+.trends-column button:hover { background-color: #0056b3; }
+.trends-column button:disabled { background-color: #ccc; cursor: not-allowed; }
+.meme-column { display: flex; justify-content: center; align-items: center; background-color: #fff; border-radius: 8px; min-height: 400px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 20px; }
+.loader, .error-message { font-size: 1.2rem; color: #606770; text-align: center; }
+.loader span { font-size: 2.5rem; display: block; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.meme-card { text-align: center; }
+.meme-caption { font-size: 1.5rem; font-style: italic; margin-bottom: 20px; }
+.meme-card img { max-width: 100%; border-radius: 8px; }
