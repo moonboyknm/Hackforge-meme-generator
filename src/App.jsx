@@ -3,16 +3,27 @@ import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
 const TEMPLATES = [
-  { id: 'drake', label: 'Drake' },
-  { id: 'distracted-boyfriend', label: 'Distracted' },
-  { id: 'two-buttons', label: 'Two Buttons' },
-  { id: 'doge', label: 'Doge' },
-  { id: 'success-kid', label: 'Success Kid' },
-  { id: 'gru-plan', label: 'Gru Plan' },
-  { id: 'change-my-mind', label: 'Change My Mind' },
-  { id: 'leonardo-dicaprio', label: 'Cheers Leo' },
-  { id: 'buzz', label: 'Buzz' }
-];
+  'away','atis','astronaut','apcr','ants','ams',
+  'aint-got-time','agnes','afraid','ackbar','aag',
+  'buzz','doge','drake',
+  // Friendly (variant) slugs kept for UI; backend resolves to canonical
+  'distracted-boyfriend','two-buttons','success-kid','gru-plan','change-my-mind','leonardo-dicaprio'
+].map(id => ({ id, label: id.replace(/-/g,' ') }));
+
+// Local variant map (UI slug -> canonical memegen slug) for immediate client-side image swaps
+const CLIENT_VARIANT_MAP = {
+  'success-kid': 'success',
+  'gru-plan': 'gru',
+  'distracted-boyfriend': 'db',
+  'two-buttons': 'ds',
+  'change-my-mind': 'cmm',
+  'leonardo-dicaprio': 'leo'
+};
+
+
+
+
+
 
 const encodeForMeme = (text) =>
   text
@@ -34,6 +45,8 @@ function App() {
   const [error, setError] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState('drake');
   const [activeTopic, setActiveTopic] = useState('');
+  const [templatesList, setTemplatesList] = useState(TEMPLATES);
+  // Provider removed (always using backend default)
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem(THEME_KEY);
@@ -88,13 +101,22 @@ function App() {
       if (data.error) {
         setError(data.error);
       } else {
+        if (Array.isArray(data.templates) && data.templates.length) {
+          setTemplatesList(prev => {
+            const ids = Array.from(new Set([...prev.map(t => t.id), ...data.templates])).slice(0, 20);
+            return ids.map(id => ({ id, label: id.replace(/-/g, ' ') }));
+          });
+        }
+        const canonical = data.template || template;
+        const display = data.requestedTemplate || template;
         setGeneratedMeme({
           caption: data.caption,
           memeUrl: data.memeUrl,
-          template: data.template || template
+          template: canonical,          // canonical slug used for image URLs
+          displayTemplate: display      // UI selection slug
         });
-        // If backend returns template list we could store, but for now ignore.
-        if (data.template) setSelectedTemplate(data.template);
+        // Keep UI highlighting on the originally selected (friendly) slug
+        setSelectedTemplate(display);
       }
     } catch (e) {
       console.error(e);
@@ -122,12 +144,14 @@ function App() {
       if (data.error) {
         setError(data.error);
       } else if (data.caption) {
-        const memeUrl = `https://api.memegen.link/images/${selectedTemplate}/_/${encodeForMeme(data.caption)}.png`;
-        setGeneratedMeme({
+        const canonical = data.template || generatedMeme.template || selectedTemplate;
+        const memeUrl = `https://api.memegen.link/images/${canonical}/_/${encodeForMeme(data.caption)}.png`;
+        setGeneratedMeme(prev => ({
           caption: data.caption,
           memeUrl,
-          template: selectedTemplate
-        });
+          template: canonical,
+          displayTemplate: prev?.displayTemplate || selectedTemplate
+        }));
       }
     } catch (e) {
       console.error(e);
@@ -139,15 +163,21 @@ function App() {
 
   const onTemplateClick = (tpl) => {
     setSelectedTemplate(tpl);
-    // If a meme already exists, update only image with same caption
+    const canonical = CLIENT_VARIANT_MAP[tpl] || tpl;
+    // If a meme already exists, update only image with same caption (use canonical slug)
     if (generatedMeme) {
-      const memeUrl = `https://api.memegen.link/images/${tpl}/_/${encodeForMeme(generatedMeme.caption)}.png`;
-      setGeneratedMeme({ ...generatedMeme, memeUrl, template: tpl });
+      const memeUrl = `https://api.memegen.link/images/${canonical}/_/${encodeForMeme(generatedMeme.caption)}.png`;
+      setGeneratedMeme({
+        ...generatedMeme,
+        memeUrl,
+        template: canonical,
+        displayTemplate: tpl
+      });
     }
   };
 
   const randomTemplate = () => {
-    const pool = TEMPLATES.map(t => t.id);
+    const pool = templatesList.map(t => t.id);
     const pick = pool[Math.floor(Math.random() * pool.length)];
     onTemplateClick(pick);
   };
@@ -159,14 +189,24 @@ function App() {
           <h1>Trend → Meme Lab</h1>
           <p className="subtitle">Pick a trend, choose a template, let AI craft the punchline.</p>
         </div>
-        <button
-          className="mini-btn theme-toggle"
-          aria-label="Toggle theme"
-          onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-          title="Toggle light / dark theme"
-        >
-          {theme === 'dark' ? '🌞' : '🌙'}
-        </button>
+        <div className="header-actions">
+          {/* Provider switch removed */}
+          
+          
+          
+          
+          
+          
+          
+          <button
+            className="mini-btn theme-toggle"
+            aria-label="Toggle theme"
+            onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+            title="Toggle light / dark theme"
+          >
+            {theme === 'dark' ? '🌞' : '🌙'}
+          </button>
+        </div>
       </header>
 
       <main className="layout-grid">
@@ -224,7 +264,7 @@ function App() {
             </div>
           </div>
           <div className="template-grid">
-            {TEMPLATES.map(t => (
+            {templatesList.map(t => (
               <button
                 key={t.id}
                 className={`template-card ${selectedTemplate === t.id ? 'selected' : ''}`}
@@ -263,6 +303,11 @@ function App() {
             {generatedMeme && !isLoadingMeme && (
               <div className="meme-output">
                 <p className="caption-text">{generatedMeme.caption}</p>
+                {generatedMeme.displayTemplate && generatedMeme.template !== generatedMeme.displayTemplate && (
+                  <small style={{opacity:.55, fontSize:'.6rem', letterSpacing:'.15em', textTransform:'uppercase'}}>
+                    Template mapped: {generatedMeme.displayTemplate} → {generatedMeme.template}
+                  </small>
+                )}
                 <div className="meme-frame">
                   <img
                     src={generatedMeme.memeUrl}

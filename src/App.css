@@ -2,42 +2,42 @@
 
 /* Theming Tokens */
 :root {
-  --bg: #0d1117;
-  --bg-alt: #161b22;
-  --surface: #1f2632;
-  --surface-alt: #273142;
-  --border: #2d3643;
-  --border-accent: #3b82f6;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --danger: #f87171;
+  --bg: #0d0d0d;
+  --bg-alt: #141414;
+  --surface: #181818;
+  --surface-alt: #1f1f1f;
+  --border: #272727;
+  --border-accent: #dc2626;
+  --text: #f5f5f5;
+  --text-muted: #b4b4b4;
+  --danger: #ef4444;
   --radius-sm: 4px;
   --radius: 10px;
   --radius-lg: 18px;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
-  --shadow: 0 4px 14px -2px rgba(0,0,0,.45);
-  --grad: linear-gradient(135deg,#6366f1,#8b5cf6);
-  --focus: 0 0 0 2px #0d1117, 0 0 0 4px #6366f1;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.55);
+  --shadow: 0 6px 18px -2px rgba(0,0,0,.65);
+  --grad: linear-gradient(135deg,#dc2626,#7f1d1d);
+  --focus: 0 0 0 2px #0d0d0d, 0 0 0 4px #dc2626;
   --font-stack: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --transition: 140ms cubic-bezier(.4,.2,.2,1);
-  --skeleton: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+  --skeleton: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0.05) 100%);
 }
 
 /* Light theme overrides */
 :root[data-theme='light'] {
   --bg: #ffffff;
-  --bg-alt: #f5f7fa;
+  --bg-alt: #fafafa;
   --surface: #ffffff;
-  --surface-alt: #f0f4f9;
-  --border: #e2e8f0;
-  --border-accent: #6366f1;
-  --text: #1a202c;
-  --text-muted: #556070;
+  --surface-alt: #f5f5f5;
+  --border: #e5e5e5;
+  --border-accent: #dc2626;
+  --text: #1b1b1b;
+  --text-muted: #555;
   --danger: #dc2626;
   --shadow-sm: 0 1px 2px rgba(0,0,0,.08);
-  --shadow: 0 8px 28px -6px rgba(30,41,59,.15);
-  --grad: linear-gradient(135deg,#6366f1,#8b5cf6);
-  --focus: 0 0 0 2px #ffffff, 0 0 0 4px #6366f1;
+  --shadow: 0 8px 28px -6px rgba(0,0,0,.12);
+  --grad: linear-gradient(135deg,#dc2626,#7f1d1d);
+  --focus: 0 0 0 2px #ffffff, 0 0 0 4px #dc2626;
   --skeleton: linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.05) 100%);
 }
 
@@ -56,8 +56,8 @@
 }
 
 :root[data-theme='light'] .trend-list li.active {
-  background: linear-gradient(95deg, rgba(99,102,241,0.18), rgba(99,102,241,0.05));
-  box-shadow: 0 0 0 1px rgba(99,102,241,0.35), 0 6px 16px -4px rgba(99,102,241,0.25);
+  background: linear-gradient(95deg, rgba(220,38,38,0.18), rgba(220,38,38,0.05));
+  box-shadow: 0 0 0 1px rgba(220,38,38,0.35), 0 6px 16px -4px rgba(220,38,38,0.25);
 }
 
 :root[data-theme='light'] .template-card {
@@ -66,7 +66,7 @@
 }
 
 :root[data-theme='light'] .template-card.selected {
-  background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(99,102,241,0.05));
+  background: linear-gradient(135deg, rgba(220,38,38,0.25), rgba(220,38,38,0.06));
 }
 
 :root[data-theme='light'] .meme-frame {
@@ -74,11 +74,11 @@
   box-shadow:
     0 0 0 1px rgba(0,0,0,0.04),
     0 8px 30px -10px rgba(0,0,0,0.15),
-    0 4px 18px -8px rgba(99,102,241,0.25);
+    0 4px 18px -8px rgba(220,38,38,0.30);
 }
 
 :root[data-theme='light'] .primary-btn {
-  box-shadow:0 6px 18px -6px rgba(99,102,241,0.45);
+  box-shadow:0 6px 18px -6px rgba(220,38,38,0.55);
 }
 
 :root[data-theme='light'] .secondary-btn {
@@ -107,6 +107,9 @@ html, body {
   font-family: var(--font-stack);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  display: flex;              /* Center the whole app horizontally */
+  flex-direction: column;
+  align-items: center;
 }
 
 body::before {
@@ -114,8 +117,8 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 80% 10%, rgba(99,102,241,0.15), transparent 60%),
-    radial-gradient(circle at 15% 85%, rgba(139,92,246,0.12), transparent 55%);
+    radial-gradient(circle at 80% 10%, rgba(220,38,38,0.18), transparent 60%),
+    radial-gradient(circle at 15% 85%, rgba(127,29,29,0.20), transparent 55%);
   pointer-events: none;
   mix-blend-mode: screen;
   animation: floatBG 18s linear infinite;
@@ -130,10 +133,20 @@ body::before {
 
 .app-container {
   max-width: 1500px;
+  width: 100%;
   margin: 0 auto;
   padding: 32px clamp(16px,2vw,48px) 64px;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional vertical centering when there's plenty of vertical space */
+@media (min-height: 820px) and (min-width: 880px) {
+  .app-container {
+    justify-content: center;
+  }
 }
 
 .app-header {
@@ -205,8 +218,8 @@ body::before {
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at 85% 15%, rgba(99,102,241,0.18), transparent 60%),
-    radial-gradient(circle at 15% 85%, rgba(139,92,246,0.13), transparent 55%);
+    radial-gradient(circle at 85% 15%, rgba(220,38,38,0.24), transparent 60%),
+    radial-gradient(circle at 15% 85%, rgba(127,29,29,0.28), transparent 55%);
   mix-blend-mode: overlay;
   opacity:.6;
   pointer-events:none;
@@ -228,15 +241,15 @@ body::before {
 }
 
 .active-topic {
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.45);
+  background: rgba(220,38,38,0.18);
+  border: 1px solid rgba(220,38,38,0.55);
   padding:4px 10px 5px;
   font-size:.7rem;
   line-height:1;
   border-radius: 40px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: #aeb8ff;
+  color: #fecaca;
   font-weight:600;
 }
 
@@ -263,8 +276,8 @@ body::before {
 
 .trend-list li.active {
   border-color: var(--border-accent);
-  background: linear-gradient(95deg, rgba(99,102,241,0.18), rgba(99,102,241,0.05));
-  box-shadow: 0 0 0 1px rgba(99,102,241,0.5), 0 6px 18px -6px rgba(0,0,0,.6);
+  background: linear-gradient(95deg, rgba(220,38,38,0.20), rgba(220,38,38,0.07));
+  box-shadow: 0 0 0 1px rgba(220,38,38,0.55), 0 6px 18px -6px rgba(0,0,0,.6);
 }
 
 .trend-btn {
@@ -302,7 +315,7 @@ body::before {
 .gen-btn:hover {
   filter: brightness(1.07);
   transform: translateY(-2px);
-  box-shadow:0 6px 16px -6px rgba(99,102,241,0.6);
+  box-shadow:0 6px 16px -6px rgba(220,38,38,0.65);
 }
 
 .gen-btn:active {
@@ -339,10 +352,10 @@ body::before {
 }
 
 .template-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px,1fr));
-  gap:10px;
-  margin-top:4px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
 }
 
 .template-card {
@@ -367,8 +380,8 @@ body::before {
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at 75% 20%, rgba(99,102,241,0.35), transparent 60%),
-    radial-gradient(circle at 25% 80%, rgba(139,92,246,0.20), transparent 55%);
+    radial-gradient(circle at 75% 20%, rgba(220,38,38,0.40), transparent 60%),
+    radial-gradient(circle at 25% 80%, rgba(127,29,29,0.28), transparent 55%);
   opacity:0;
   transition: var(--transition);
   z-index:-1;
@@ -388,8 +401,8 @@ body::before {
 .template-card.selected {
   border-color: var(--border-accent);
   color:#fff;
-  background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(99,102,241,0.05));
-  box-shadow:0 0 0 1px rgba(99,102,241,0.55), 0 10px 30px -12px rgba(99,102,241,0.55);
+  background: linear-gradient(135deg, rgba(220,38,38,0.30), rgba(220,38,38,0.08));
+  box-shadow:0 0 0 1px rgba(220,38,38,0.60), 0 10px 30px -12px rgba(220,38,38,0.60);
 }
 
 .template-label {
@@ -433,8 +446,8 @@ body::before {
   top:-40%;
   left:-40%;
   background:
-    radial-gradient(circle at 40% 60%, rgba(99,102,241,0.2), transparent 65%),
-    radial-gradient(circle at 70% 30%, rgba(139,92,246,0.15), transparent 60%);
+    radial-gradient(circle at 40% 60%, rgba(220,38,38,0.25), transparent 65%),
+    radial-gradient(circle at 70% 30%, rgba(127,29,29,0.22), transparent 60%);
   animation: drift 22s linear infinite;
   opacity:.45;
 }
@@ -450,9 +463,9 @@ body::before {
   height:54px;
   border-radius:50%;
   border:5px solid rgba(255,255,255,0.08);
-  border-top-color:#818cf8;
+  border-top-color:#dc2626;
   animation: spin 1.1s linear infinite;
-  box-shadow:0 0 0 1px rgba(255,255,255,0.03), 0 0 22px -3px rgba(99,102,241,0.6);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.03), 0 0 22px -3px rgba(220,38,38,0.65);
 }
 
 @keyframes spin {
@@ -504,7 +517,7 @@ body::before {
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.04),
     0 10px 36px -10px rgba(0,0,0,.75),
-    0 4px 18px -8px rgba(99,102,241,0.4);
+    0 4px 18px -8px rgba(220,38,38,0.45);
   overflow:hidden;
 }
 
@@ -513,8 +526,8 @@ body::before {
   position:absolute;
   inset:0;
   background:
-    radial-gradient(circle at 80% 20%, rgba(99,102,241,0.25), transparent 60%),
-    radial-gradient(circle at 20% 80%, rgba(139,92,246,0.20), transparent 60%);
+    radial-gradient(circle at 80% 20%, rgba(220,38,38,0.30), transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(127,29,29,0.26), transparent 60%);
   mix-blend-mode:overlay;
   opacity:.55;
   pointer-events:none;
@@ -559,13 +572,13 @@ body::before {
   background: var(--grad);
   color:#fff;
   border:1px solid rgba(255,255,255,0.15);
-  box-shadow:0 6px 20px -8px rgba(99,102,241,0.6);
+  box-shadow:0 6px 20px -8px rgba(220,38,38,0.65);
 }
 
 .primary-btn:hover {
   filter:brightness(1.07);
   transform: translateY(-3px);
-  box-shadow:0 10px 28px -10px rgba(99,102,241,0.75);
+  box-shadow:0 10px 28px -10px rgba(220,38,38,0.75);
 }
 
 .secondary-btn {
@@ -633,7 +646,7 @@ a:focus-visible {
   background: rgba(255,255,255,0.04);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg,#6366f1,#8b5cf6);
+  background: linear-gradient(180deg,#dc2626,#7f1d1d);
   border-radius:20px;
   border:2px solid #0d1117;
   box-shadow:0 0 0 1px rgba(0,0,0,.6);
@@ -667,6 +680,66 @@ a:focus-visible {
     padding:12px;
   }
   .template-grid {
-    grid-template-columns: repeat(auto-fill, minmax(90px,1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* (Removed duplicate root override block - already defined at top) */
+
+/* Restore original layout with minor improvements */
+.layout-grid {
+  grid-template-columns: 300px 1fr 500px;
+  align-items:start;
+}
+
+/* Remove span override - use normal flow */
+.templates-panel {
+  /* grid-column: auto; */
+}
+@media (max-width: 980px) {
+  .templates-panel {
+    grid-column: auto;
+  }
+}
+
+/* Tighter template cards so more fit per row */
+.template-card {
+  padding: 12px 8px 10px;
+  font-size: 0.65rem;
+}
+
+/* (Removed duplicate active state definitions - earlier canonical versions retained) */
+
+/* (Removed duplicate button/spinner accent overrides - original definitions already updated) */
+
+/* (Removed duplicate scrollbar accent - already defined) */
+
+/* (Removed duplicate light theme red overrides - earlier section handles these) */
+
+/* Subtle fix attempt for stray vertical alignment line: ensure panels start flush */
+.layout-grid > .trends-panel {
+  margin-left:0;
+  border-left:none;
+}
+
+/* Prevent stray vertical line by removing left border on first panel and aligning grid gap visually */
+.layout-grid > .panel:first-child {
+  border-left-color: transparent;
+}
+
+/* Horizontal scroll enhancement if many templates */
+.templates-panel .template-grid {
+  max-height: none;
+}
+
+/* Optional horizontal mode for very wide screens */
+@media (min-width: 1400px) {
+  .templates-panel .template-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1700px) {
+  .templates-panel .template-grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
